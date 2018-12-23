@@ -1,51 +1,6 @@
-// class Xotaker {
-    // constructor(x, y) {
-    //     this.x = x;
-    //     this.y = y;
-    //     this.energy = 4;
-    //     this.directions = [
-    //         [this.x - 1, this.y - 1],
-    //         [this.x, this.y - 1],
-    //         [this.x + 1, this.y - 1],
-    //         [this.x - 1, this.y],
-    //         [this.x + 1, this.y],
-    //         [this.x - 1, this.y + 1],
-    //         [this.x, this.y + 1],
-    //         [this.x + 1, this.y + 1]
-    //     ]
-    // }
 
-    // getNewDirections() {
-    //     this.directions = [
-    //         [this.x - 1, this.y - 1],
-    //         [this.x, this.y - 1],
-    //         [this.x + 1, this.y - 1],
-    //         [this.x - 1, this.y],
-    //         [this.x + 1, this.y],
-    //         [this.x - 1, this.y + 1],
-    //         [this.x, this.y + 1],
-    //         [this.x + 1, this.y + 1]
-    //     ]
-    // }
-
-    // chooseCell(character) {
-    //     this.getNewDirections()
-    //     var found = []
-    //     for (var i in this.directions) {
-    //         var x = this.directions[i][0]
-    //         var y = this.directions[i][1]
-    //         if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-    //             if (matrix[y][x] == character) {
-    //                 found.push(this.directions[i])
-    //             }
-    //         }
-
-    //     }
-    //     return found;
-
-    // }
-
-    class Xotaker extends LivingCreature {
+var LivingCreature = require("./LivingCreature")
+module.exports = class Xotaker extends LivingCreature {
         constructor(x, y){
             super(x, y);
             this.energy = 4;
@@ -69,8 +24,10 @@
     
 
     mult() {
-        var empty = random(this.chooseCell(0))
-        if (empty && this.energy > 10) {
+        var array = this.chooseCell(0)
+        var empty = array[Math.floor(Math.random() * array.length)];
+        if (empty && this.energy > 10 && weather != "ashun" && weather != "dzmer") {
+            xotakerQanakStart++;
             var newX = empty[0]
             var newY = empty[1]
             matrix[newY][newX] = 2
@@ -80,9 +37,10 @@
     }
 
     move() {
-        var empty = random(this.chooseCell(0))
+        var array = this.chooseCell(0)
+        var empty = array[Math.floor(Math.random() * array.length)];
         this.energy--;
-        if (empty) {
+        if (empty && weather != "dzmer") {
             var newX = empty[0]
             var newY = empty[1]
             matrix[newY][newX] = 2
@@ -94,7 +52,8 @@
     }
 
     eat() {
-        var food = random(this.chooseCell(1))
+        var array = this.chooseCell(1)
+        var food = array[Math.floor(Math.random() * array.length)];
         if (food) {
             var newX = food[0]
             var newY = food[1]
